@@ -1,0 +1,60 @@
+{
+  "name": "@blackmatter/portal-mcp",
+  "version": "1.0.0",
+  "description": "Official Model Context Protocol (MCP) Server for Portal — AI Streaming Analytics, Catalog & Safe Fixes",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "portal-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "smithery.yaml",
+    "openapi.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BlackMatter-Studios/portal-mcp.git"
+  },
+  "homepage": "https://blackmatter.cc/mcp",
+  "bugs": {
+    "url": "https://github.com/BlackMatter-Studios/portal-mcp/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepack": "npm run build",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "tsx --test test/**/*.test.ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "portal",
+    "claude",
+    "cursor",
+    "chatgpt",
+    "gemini",
+    "smithery",
+    "music-distribution",
+    "music-analytics"
+  ],
+  "author": "Black Matter Labs",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "@supabase/supabase-js": "^2.49.1",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

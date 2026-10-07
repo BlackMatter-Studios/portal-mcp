@@ -1,0 +1,205 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Portal Music Distribution & Analytics Copilot",
+    "description": "Connect Portal catalog inspection, streaming analytics trends, compliance linting, and safe draft metadata edits to ChatGPT and Gemini.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://mcp.blackmatter.cc",
+      "description": "BlackMatter Portal Production MCP Gateway"
+    }
+  ],
+  "paths": {
+    "/analytics/summary": {
+      "get": {
+        "operationId": "getArtistAnalyticsSummary",
+        "summary": "Get streaming analytics summary",
+        "description": "Retrieves total streams, 30-day and 90-day growth trends, and Spotify listener stats for the authenticated user's artists.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "type": "object" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analytics/detail": {
+      "get": {
+        "operationId": "getArtistAnalyticsDetail",
+        "summary": "Get detailed artist analytics",
+        "description": "Retrieves granular streaming facts and DSP breakdown for a specific artist ID.",
+        "parameters": [
+          {
+            "name": "artist_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" },
+            "description": "UUID of the artist"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed artist analytics breakdown"
+          }
+        }
+      }
+    },
+    "/releases": {
+      "get": {
+        "operationId": "listReleases",
+        "summary": "List user releases",
+        "description": "Lists music releases owned by the artist or label account.",
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Filter by state: Draft, Processing, In Review, Approved, Rejected, Edit, Takedown"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 20 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of releases"
+          }
+        }
+      }
+    },
+    "/releases/{release_id}": {
+      "get": {
+        "operationId": "getReleaseDetails",
+        "summary": "Get release details",
+        "description": "Returns full release metadata, artwork URLs, tracks, and distribution status.",
+        "parameters": [
+          {
+            "name": "release_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full release payload"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateReleaseDraft",
+        "summary": "Update draft release metadata",
+        "description": "Updates metadata (title, genre, copyright) for a draft release. Database rejects if release is locked or distributed.",
+        "parameters": [
+          {
+            "name": "release_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "version": { "type": "string" },
+                  "genre_id": { "type": "string" },
+                  "subgenre_id": { "type": "string" },
+                  "pline": { "type": "string" },
+                  "cline": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Release updated successfully" }
+        }
+      }
+    },
+    "/releases/{release_id}/lint": {
+      "get": {
+        "operationId": "lintRelease",
+        "summary": "Lint release for compliance",
+        "description": "Runs DSP distribution pre-flight checks (missing artwork, ISRCs, audio masters, title capitalization).",
+        "parameters": [
+          {
+            "name": "release_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Lint diagnostic report" }
+        }
+      }
+    },
+    "/tracks/{track_id}": {
+      "patch": {
+        "operationId": "updateTrackDraft",
+        "summary": "Update draft track",
+        "description": "Updates track title, explicit flag, preview offset, or ISRC on editable releases.",
+        "parameters": [
+          {
+            "name": "track_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "isrc": { "type": "string" },
+                  "explicit": { "type": "boolean" },
+                  "preview_start_seconds": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Track updated successfully" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "API Key",
+        "description": "Portal Personal Access Token starting with pmcp_live_"
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+# Secrets, credentials, and local environment files
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+*.secret
+*.token
+
+# Source code and build configurations
+src/
+test/
+tests/
+tsconfig.json
+tsconfig.*.json
+
+# Development & Git
+.git/
+.gitignore
+.gitattributes
+.github/
+.vscode/
+.idea/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Test artifacts & coverage
+coverage/
+*.test.js
+*.test.d.ts
+*.spec.js
+*.spec.d.ts

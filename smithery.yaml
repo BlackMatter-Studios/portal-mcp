@@ -1,0 +1,17 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - PORTAL_API_KEY
+    properties:
+      PORTAL_API_KEY:
+        type: string
+        description: "Portal Personal Access Token starting with pmcp_live_ (generated in Portal Settings -> AI & MCP Integrations)"
+      SUPABASE_URL:
+        type: string
+        description: "Portal Supabase endpoint (optional)"
+        default: "https://kqgquprgfhdgvuvgirmz.supabase.co"
+  commandFunction:
+    package: "@blackmatter/portal-mcp"
+    executable: "portal-mcp"
