@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.blackmatter-studios/portal",
+  "title": "BlackMatter Portal",
+  "description": "Official Model Context Protocol (MCP) server for BlackMatter Portal music distribution and analytics. Query streaming facts, inspect catalog, and safely fix draft metadata.",
+  "version": "1.0.1",
+  "repository": {
+    "url": "https://github.com/BlackMatter-Studios/portal-mcp",
+    "source": "github"
+  },
+  "homepage": "https://blackmatter.cc/mcp",
+  "license": "Apache-2.0",
+  "distribution": {
+    "npm": {
+      "package": "@blackmatter/portal-mcp",
+      "executable": "portal-mcp"
+    },
+    "remote": {
+      "url": "https://kqgquprgfhdgvuvgirmz.supabase.co/functions/v1/portal-mcp/sse",
+      "transport": "sse"
+    }
+  }
+}
