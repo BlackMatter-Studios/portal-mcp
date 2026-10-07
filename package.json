@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "portal-mcp": "./dist/index.js"
+    "portal-mcp": "dist/index.js"
   },
   "files": [
     "dist",
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/BlackMatter-Studios/portal-mcp.git"
+    "url": "git+https://github.com/BlackMatter-Studios/portal-mcp.git"
   },
   "homepage": "https://blackmatter.cc/mcp",
   "bugs": {
@@ -26,7 +26,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && chmod +x dist/index.js",
     "prepack": "npm run build",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
