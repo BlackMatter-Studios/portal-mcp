@@ -1,6 +1,6 @@
 {
   "name": "@blackmatter/portal-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Official Model Context Protocol (MCP) Server for Portal — AI Streaming Analytics, Catalog & Safe Fixes",
   "main": "dist/index.js",
   "type": "module",

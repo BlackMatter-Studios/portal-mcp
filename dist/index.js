@@ -15,7 +15,7 @@ const DEFAULT_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3Mi
 function createServerForUser(user) {
     const server = new McpServer({
         name: "portal-mcp",
-        version: "1.0.0",
+        version: "1.0.1",
     });
     registerAnalyticsTools(server, user);
     registerCatalogTools(server, user);
@@ -66,7 +66,7 @@ async function runSse(port) {
             res.end(JSON.stringify({
                 status: "ok",
                 service: "portal-mcp",
-                version: "1.0.0",
+                version: "1.0.1",
             }));
             return;
         }
